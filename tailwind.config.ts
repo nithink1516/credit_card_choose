@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -61,6 +62,27 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
+				},
+				// Credit card specific colors
+				navy: {
+					DEFAULT: '#1A1F2C',
+					light: '#2A3042'
+				},
+				blue: {
+					DEFAULT: '#1EAEDB',
+					light: '#33C3F0'
+				},
+				charcoal: {
+					DEFAULT: '#403E43',
+					dark: '#221F26'
+				},
+				segment: {
+					'entry': '#E5DEFF',
+					'travel': '#D3E4FD',
+					'shopping': '#FDE1D3',
+					'dining': '#FEF7CD',
+					'fuel': '#F2FCE2',
+					'premium': '#FFDEE2',
 				}
 			},
 			borderRadius: {
@@ -84,11 +106,38 @@ export default {
 					to: {
 						height: '0'
 					}
+				},
+				'fade-in': {
+					from: {
+						opacity: '0'
+					},
+					to: {
+						opacity: '1'
+					}
+				},
+				'fade-out': {
+					from: {
+						opacity: '1'
+					},
+					to: {
+						opacity: '0'
+					}
+				},
+				'slide-in': {
+					from: {
+						transform: 'translateX(100%)'
+					},
+					to: {
+						transform: 'translateX(0)'
+					}
 				}
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
-				'accordion-up': 'accordion-up 0.2s ease-out'
+				'accordion-up': 'accordion-up 0.2s ease-out',
+				'fade-in': 'fade-in 0.3s ease-out',
+				'fade-out': 'fade-out 0.3s ease-out',
+				'slide-in': 'slide-in 0.4s ease-out'
 			}
 		}
 	},
