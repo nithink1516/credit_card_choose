@@ -17,13 +17,16 @@ import AdditionalBenefitsQuestion from "@/components/questions/AdditionalBenefit
 import RecommendationsSection from "@/components/RecommendationsSection";
 import { useRecommendations } from "@/hooks/useRecommendations";
 import { Button } from "@/components/ui/button";
-import { CreditCard } from "lucide-react";
+import { CreditCard, User } from "lucide-react";
+import AuthPage from "@/components/AuthPage";
+import { useAuth } from "@/hooks/useAuth";
 
 const Index = () => {
   const [step, setStep] = useState(1);
   const [showQuestionnaire, setShowQuestionnaire] = useState(false);
   const [responses, setResponses] = useState<UserResponse>(defaultUserResponses);
   const [showRecommendations, setShowRecommendations] = useState(false);
+  const { user, signOut } = useAuth();
   
   const recommendations = useRecommendations(responses);
   
@@ -47,7 +50,7 @@ const Index = () => {
     setResponses(prev => ({
       ...prev,
       [category]: {
-        ...prev[category as keyof typeof prev],
+        ...(prev[category] as Record<string, any>),
         [field]: value
       }
     }));
@@ -216,6 +219,11 @@ const Index = () => {
     }
   };
 
+  // If user is not authenticated, show auth page
+  if (!user) {
+    return <AuthPage />;
+  }
+
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
       {/* Header */}
@@ -224,6 +232,19 @@ const Index = () => {
           <h1 className="text-2xl font-bold flex items-center">
             <CreditCard className="mr-2" /> CardWise
           </h1>
+          <div className="flex items-center gap-4">
+            <div className="flex items-center gap-2">
+              <User className="w-5 h-5" />
+              <span>{user.email}</span>
+            </div>
+            <Button 
+              onClick={signOut}
+              variant="outline"
+              className="border-white text-white hover:bg-white hover:text-navy"
+            >
+              Sign Out
+            </Button>
+          </div>
         </div>
       </header>
 
