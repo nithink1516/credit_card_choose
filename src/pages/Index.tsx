@@ -156,7 +156,7 @@ const Index = () => {
         return (
           <SpendingCategoriesQuestion 
             value={responses.spendingCategories} 
-            onChange={(category, value) => 
+            onChange={(category: string, value: boolean) => 
               updateNestedResponse("spendingCategories", category, value)
             } 
           />
@@ -186,7 +186,7 @@ const Index = () => {
         return (
           <CobrandedQuestion 
             value={responses.cobrandedInterest}
-            onChange={(brand, value) => 
+            onChange={(brand: string, value: boolean) => 
               updateNestedResponse("cobrandedInterest", brand, value)
             } 
           />
@@ -209,7 +209,7 @@ const Index = () => {
         return (
           <AdditionalBenefitsQuestion 
             value={responses.additionalBenefits}
-            onChange={(benefit, value) => 
+            onChange={(benefit: string, value: boolean) => 
               updateNestedResponse("additionalBenefits", benefit, value)
             } 
           />

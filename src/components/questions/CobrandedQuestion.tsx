@@ -9,7 +9,7 @@ type CobrandedQuestionProps = {
     tata: boolean;
     none: boolean;
   };
-  onChange: (brand: keyof typeof value, checked: boolean) => void;
+  onChange: (brand: keyof CobrandedQuestionProps['value'], checked: boolean) => void;
 };
 
 const CobrandedQuestion = ({ value, onChange }: CobrandedQuestionProps) => {

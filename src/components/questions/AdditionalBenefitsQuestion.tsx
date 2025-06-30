@@ -9,7 +9,7 @@ type AdditionalBenefitsQuestionProps = {
     fuelSurcharge: boolean;
     none: boolean;
   };
-  onChange: (benefit: keyof typeof value, checked: boolean) => void;
+  onChange: (benefit: keyof AdditionalBenefitsQuestionProps['value'], checked: boolean) => void;
 };
 
 const AdditionalBenefitsQuestion = ({ value, onChange }: AdditionalBenefitsQuestionProps) => {

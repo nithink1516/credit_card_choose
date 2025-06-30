@@ -11,7 +11,7 @@ type SpendingCategoriesQuestionProps = {
     fuel: boolean;
     groceries: boolean;
   };
-  onChange: (category: keyof typeof value, checked: boolean) => void;
+  onChange: (category: keyof SpendingCategoriesQuestionProps['value'], checked: boolean) => void;
 };
 
 const SpendingCategoriesQuestion = ({ value, onChange }: SpendingCategoriesQuestionProps) => {
