@@ -1,1 +1,26 @@
+
 project_id = "yuvhwufnxukoikwkxvby"
+
+[api]
+enabled = true
+port = 54321
+schemas = ["public", "graphql_public"]
+extra_search_path = ["public", "extensions"]
+max_rows = 1000
+
+[auth]
+enabled = true
+port = 54322
+site_url = "http://localhost:5173"
+additional_redirect_urls = ["https://localhost:5173"]
+jwt_expiry = 3600
+jwt_secret = "super-secret-jwt-token-with-at-least-32-characters-long"
+anonymous_key = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl1dmh3dWZueHVrb2lrd2t4dmJ5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTEyODI2NjAsImV4cCI6MjA2Njg1ODY2MH0.FBhDFAVU-Du3BtWvGN2SuDsj4pCO0YvsAqtwQRGsijI"
+service_role_key = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl1dmh3dWZueHVrb2lrd2t4dmJ5Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc1MTI4MjY2MCwiZXhwIjoyMDY2ODU4NjYwfQ.TjhPSSdoaO8T5Z4hRpBQKOgkfG8MzJvHFQSNkd0HRSE"
+max_age = 300
+refresh_token_rotation_enabled = true
+secure_password_change_enabled = true
+enable_signup = true
+
+[functions.ai-credit-card-recommendations]
+verify_jwt = true

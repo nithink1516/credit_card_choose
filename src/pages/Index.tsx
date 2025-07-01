@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { UserResponse, defaultUserResponses } from "@/types";
 import QuestionnaireCard from "@/components/QuestionnaireCard";
@@ -14,12 +13,13 @@ import CobrandedQuestion from "@/components/questions/CobrandedQuestion";
 import AnnualFeeQuestion from "@/components/questions/AnnualFeeQuestion";
 import BalanceQuestion from "@/components/questions/BalanceQuestion";
 import AdditionalBenefitsQuestion from "@/components/questions/AdditionalBenefitsQuestion";
-import RecommendationsSection from "@/components/RecommendationsSection";
-import { useRecommendations } from "@/hooks/useRecommendations";
 import { Button } from "@/components/ui/button";
 import { CreditCard, User } from "lucide-react";
 import AuthPage from "@/components/AuthPage";
 import { useAuth } from "@/hooks/useAuth";
+
+import { useAIRecommendations } from "@/hooks/useAIRecommendations";
+import AIRecommendationsSection from "@/components/AIRecommendationsSection";
 
 const Index = () => {
   const [step, setStep] = useState(1);
@@ -28,7 +28,7 @@ const Index = () => {
   const [showRecommendations, setShowRecommendations] = useState(false);
   const { user, signOut } = useAuth();
   
-  const recommendations = useRecommendations(responses);
+  const { recommendations, loading, error, generateRecommendations } = useAIRecommendations();
   
   // Total number of steps/questions
   const totalSteps = 12;
@@ -57,7 +57,7 @@ const Index = () => {
   };
 
   // Go to next step
-  const handleNext = () => {
+  const handleNext = async () => {
     if (step === 1 && !responses.age) {
       // If user is under 18, skip to recommendations
       setShowQuestionnaire(false);
@@ -68,9 +68,11 @@ const Index = () => {
     if (step < totalSteps) {
       setStep(prev => prev + 1);
     } else {
-      // Complete the questionnaire
+      // Complete the questionnaire and generate AI recommendations
       setShowQuestionnaire(false);
       setShowRecommendations(true);
+      console.log('Generating AI recommendations with responses:', responses);
+      await generateRecommendations(responses);
     }
   };
 
@@ -230,7 +232,7 @@ const Index = () => {
       <header className="bg-navy text-white py-4 px-6 shadow-md">
         <div className="container mx-auto flex justify-between items-center">
           <h1 className="text-2xl font-bold flex items-center">
-            <CreditCard className="mr-2" /> CardWise
+            <CreditCard className="mr-2" /> CardWise AI
           </h1>
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-2">
@@ -253,17 +255,17 @@ const Index = () => {
           /* Landing/Welcome Screen */
           <div className="flex flex-col items-center justify-center flex-grow text-center max-w-3xl mx-auto">
             <h1 className="text-3xl md:text-4xl font-bold text-navy mb-4">
-              Find Your Perfect Credit Card
+              Find Your Perfect Credit Card with AI
             </h1>
             <p className="text-lg text-gray-600 mb-8">
               Answer a few questions about your spending habits and preferences, 
-              and we'll recommend the best credit cards for you.
+              and our AI will analyze real-time market data to recommend the best credit cards for you.
             </p>
             <Button 
               onClick={startQuestionnaire}
               className="bg-blue hover:bg-blue-light text-white font-bold py-3 px-8 rounded-md text-lg"
             >
-              Get Started
+              Get AI-Powered Recommendations
             </Button>
           </div>
         ) : showQuestionnaire ? (
@@ -279,9 +281,13 @@ const Index = () => {
             />
           </div>
         ) : (
-          /* Recommendations */
+          /* AI Recommendations */
           <div className="w-full max-w-6xl mx-auto">
-            <RecommendationsSection recommendations={recommendations} />
+            <AIRecommendationsSection 
+              recommendations={recommendations}
+              loading={loading}
+              error={error}
+            />
             <div className="text-center mt-8">
               <Button 
                 onClick={startQuestionnaire}
@@ -297,7 +303,7 @@ const Index = () => {
 
       {/* Footer */}
       <footer className="bg-navy-light py-4 px-6 text-white text-center">
-        <p>© 2023 CardWise - Find the perfect credit card for your needs</p>
+        <p>© 2023 CardWise AI - AI-powered credit card recommendations</p>
       </footer>
     </div>
   );
